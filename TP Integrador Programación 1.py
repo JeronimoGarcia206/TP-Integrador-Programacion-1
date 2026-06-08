@@ -5,240 +5,6 @@ Gestión de Datos de Países en Python: filtros, ordenamientos y estadísticas
 """
 import csv
 
-
-#Funciones
-def cargar_datos():
-    """Carga los Datos desde el Archivo CSV"""
-
-    paises = []
-
-    try:
-        with open('Información Geografica.csv', mode='r', newline='', encoding='utf-8') as archivo:
-            lector = csv.DictReader(archivo)
-
-            for fila in lector:
-                pais = {f"nombre": fila["nombre"],
-                        "poblacion": int(fila["poblacion"]),
-                        "superficie": int(fila["superficie"]),
-                        "continente": fila["continente"]}
-                paises.append(pais)
-
-    except FileNotFoundError:
-            print("Error: No se encontró el archivo.")
-
-    except Exception as e:
-            print(f"Error inesperado: {e}")
-
-    return paises
-
-def mostrar_paises(paises):
-    """Muestra todos los países"""
-
-    for pais in paises:
-        print(pais)
-
-def buscar_pais(paises, nombre):
-    """Esta Función Busca Países en la Lista"""
-    for pais in paises:
-        if pais["nombre"] == nombre:
-            return pais
-
-    return None
-
-def menu_filtros():
-    """Esta Función Muestra el Menú de Filtros"""
-
-    print("Filtros")
-    print("1. Continente")
-    print("2. Rango de Población")
-    print("3. Rango de Superficie")
-
-def filtrar_continente():
-    """Esta Función Filtra por Continente"""
-
-    continente = validar_continente()
-
-    encontrados = False
-
-    for pais in paises:
-
-        if pais["continente"] == continente:
-            print(pais)
-            encontrados = True
-
-    if not encontrados:
-        print("No se encontraron países.")
-
-def filtrar_poblacion():
-    """Esta Función Filtra por Población"""
-
-    try:
-        print("Ingrese la población mínima")
-        minimo = validar_poblacion()
-        print("Ingrese la población máxima")
-        maximo = validar_poblacion()
-
-        if minimo > maximo:
-            print("El mínimo no puede ser mayor que el máximo.")
-            return
-
-        encontrados = False
-
-        for pais in paises:
-
-            if minimo <= pais["poblacion"] <= maximo:
-                print(pais)
-                encontrados = True
-
-        if not encontrados:
-            print("No se encontraron países.")
-
-    except Exception as e:
-        print(f"Error inesperado: {e}")
-
-def filtrar_superficie():
-    """Esta Función Filtra por Superficie"""
-    
-    try:
-        print("Ingrese la superficie mínima")
-        minimo = validar_superficie()
-        print("Ingrese la superficie máxima")
-        maximo = validar_superficie()
-
-        if minimo > maximo:
-            print("El mínimo no puede ser mayor que el máximo.")
-            return
-
-        encontrados = False
-
-        for pais in paises:
-
-            if minimo <= pais["superficie"] <= maximo:
-                print(pais)
-                encontrados = True
-
-        if not encontrados:
-            print("No se encontraron países.")
-
-    except Exception as e:
-        print(f"Error inesperado: {e}")
-
-def menu_orden():
-    """Muestra el Menú de Orden"""
-
-    print("Ordenar por")
-    print("1. Nombre")
-    print("2. Población")
-    print("3. Superficie")
-
-def menu_sentido():
-    """Muestra el Sentido del Orden"""
-
-    print("1. Ascendente")
-    print("2. Descendente")
-
-def ordenar_nombre():
-    """Esta Función Permite Ordenar por Nombre"""
-
-    try:
-        paises_ordenados = paises.copy()
-
-        menu_sentido()
-        sentido = validar_sentido()
-
-        for i in range(len(paises_ordenados)):
-
-            for j in range(i + 1, len(paises_ordenados)):
-
-                if sentido == "1":
-
-                    if paises_ordenados[i]["nombre"] > paises_ordenados[j]["nombre"]:
-
-                        aux = paises_ordenados[i]
-                        paises_ordenados[i] = paises_ordenados[j]
-                        paises_ordenados[j] = aux
-
-                else:
-
-                    if paises_ordenados[i]["nombre"] < paises_ordenados[j]["nombre"]:
-
-                        aux = paises_ordenados[i]
-                        paises_ordenados[i] = paises_ordenados[j]
-                        paises_ordenados[j] = aux
-
-        mostrar_paises(paises_ordenados)
-
-    except Exception as e:
-        print(f"Error inesperado: {e}")
-
-def ordenar_poblacion():
-    """Esta Función Permite Ordenar por Población"""
-
-    try:
-        paises_ordenados = paises.copy()
-
-        menu_sentido()
-        sentido = validar_sentido()
-
-        for i in range(len(paises_ordenados)):
-
-            for j in range(i + 1, len(paises_ordenados)):
-
-                if sentido == "1":
-
-                    if paises_ordenados[i]["poblacion"] > paises_ordenados[j]["poblacion"]:
-
-                        aux = paises_ordenados[i]
-                        paises_ordenados[i] = paises_ordenados[j]
-                        paises_ordenados[j] = aux
-
-                else:
-
-                    if paises_ordenados[i]["poblacion"] < paises_ordenados[j]["poblacion"]:
-
-                        aux = paises_ordenados[i]
-                        paises_ordenados[i] = paises_ordenados[j]
-                        paises_ordenados[j] = aux
-
-        mostrar_paises(paises_ordenados)
-
-    except Exception as e:
-        print(f"Error inesperado: {e}")
-
-def ordenar_superficie():
-    """Esta Función Permite Ordenar por Superficie"""
-
-    try:
-        paises_ordenados = paises.copy()
-
-        menu_sentido()
-        sentido = validar_sentido()
-
-        for i in range(len(paises_ordenados)):
-
-            for j in range(i + 1, len(paises_ordenados)):
-
-                if sentido == "1":
-
-                    if paises_ordenados[i]["superficie"] > paises_ordenados[j]["superficie"]:
-
-                        aux = paises_ordenados[i]
-                        paises_ordenados[i] = paises_ordenados[j]
-                        paises_ordenados[j] = aux
-
-                else:
-
-                    if paises_ordenados[i]["superficie"] < paises_ordenados[j]["superficie"]:
-
-                        aux = paises_ordenados[i]
-                        paises_ordenados[i] = paises_ordenados[j]
-                        paises_ordenados[j] = aux
-
-        mostrar_paises(paises_ordenados)
-
-    except Exception as e:
-        print(f"Error inesperado: {e}")
-
 #Funciones de Validación
 def validar_opcion():
     """Solicita y valida la opción del menú"""
@@ -398,7 +164,249 @@ def validar_continente():
         except Exception as e:
             print(f"Error inesperado: {e}")
 
-#Funciones del Menú
+#Funciones De Los Menús
+def menu_filtros():
+    """Esta Función Muestra el Menú de Filtros"""
+
+    print("Filtros")
+    print("1. Continente")
+    print("2. Rango de Población")
+    print("3. Rango de Superficie")
+
+def menu_orden():
+    """Muestra el Menú de Orden"""
+
+    print("Ordenar por")
+    print("1. Nombre")
+    print("2. Población")
+    print("3. Superficie")
+
+def menu_sentido():
+    """Muestra el Sentido del Orden"""
+
+    print("1. Ascendente")
+    print("2. Descendente")
+
+
+#Funciones De Las Opciones
+def cargar_datos():
+    """Carga los Datos desde el Archivo CSV"""
+
+    paises = []
+
+    try:
+        with open('Información Geografica.csv', mode='r', newline='', encoding='utf-8') as archivo:
+            lector = csv.DictReader(archivo)
+
+            for fila in lector:
+                pais = {f"nombre": fila["nombre"],
+                        "poblacion": int(fila["poblacion"]),
+                        "superficie": int(fila["superficie"]),
+                        "continente": fila["continente"]}
+                paises.append(pais)
+
+    except FileNotFoundError:
+            print("Error: No se encontró el archivo.")
+
+    except Exception as e:
+            print(f"Error inesperado: {e}")
+
+    return paises
+
+def mostrar_paises(paises):
+    """Muestra todos los países"""
+
+    for pais in paises:
+        print(pais)
+
+def buscar_pais(paises, nombre):
+    """Esta Función Busca Países en la Lista"""
+    for pais in paises:
+        if pais["nombre"] == nombre:
+            return pais
+
+    return None
+
+def filtrar_continente():
+    """Esta Función Filtra por Continente"""
+
+    continente = validar_continente()
+
+    encontrados = False
+
+    for pais in paises:
+
+        if pais["continente"] == continente:
+            print(pais)
+            encontrados = True
+
+    if not encontrados:
+        print("No se encontraron países.")
+
+def filtrar_poblacion():
+    """Esta Función Filtra por Población"""
+
+    try:
+        print("Ingrese la población mínima")
+        minimo = validar_poblacion()
+        print("Ingrese la población máxima")
+        maximo = validar_poblacion()
+
+        if minimo > maximo:
+            print("El mínimo no puede ser mayor que el máximo.")
+            return
+
+        encontrados = False
+
+        for pais in paises:
+
+            if minimo <= pais["poblacion"] <= maximo:
+                print(pais)
+                encontrados = True
+
+        if not encontrados:
+            print("No se encontraron países.")
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
+def filtrar_superficie():
+    """Esta Función Filtra por Superficie"""
+    
+    try:
+        print("Ingrese la superficie mínima")
+        minimo = validar_superficie()
+        print("Ingrese la superficie máxima")
+        maximo = validar_superficie()
+
+        if minimo > maximo:
+            print("El mínimo no puede ser mayor que el máximo.")
+            return
+
+        encontrados = False
+
+        for pais in paises:
+
+            if minimo <= pais["superficie"] <= maximo:
+                print(pais)
+                encontrados = True
+
+        if not encontrados:
+            print("No se encontraron países.")
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
+
+    """Muestra el Sentido del Orden"""
+
+    print("1. Ascendente")
+    print("2. Descendente")
+
+def ordenar_nombre():
+    """Esta Función Permite Ordenar por Nombre"""
+
+    try:
+        paises_ordenados = paises.copy()
+
+        menu_sentido()
+        sentido = validar_sentido()
+
+        for i in range(len(paises_ordenados)):
+
+            for j in range(i + 1, len(paises_ordenados)):
+
+                if sentido == "1":
+
+                    if paises_ordenados[i]["nombre"] > paises_ordenados[j]["nombre"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+                else:
+
+                    if paises_ordenados[i]["nombre"] < paises_ordenados[j]["nombre"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+        mostrar_paises(paises_ordenados)
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
+def ordenar_poblacion():
+    """Esta Función Permite Ordenar por Población"""
+
+    try:
+        paises_ordenados = paises.copy()
+
+        menu_sentido()
+        sentido = validar_sentido()
+
+        for i in range(len(paises_ordenados)):
+
+            for j in range(i + 1, len(paises_ordenados)):
+
+                if sentido == "1":
+
+                    if paises_ordenados[i]["poblacion"] > paises_ordenados[j]["poblacion"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+                else:
+
+                    if paises_ordenados[i]["poblacion"] < paises_ordenados[j]["poblacion"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+        mostrar_paises(paises_ordenados)
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
+def ordenar_superficie():
+    """Esta Función Permite Ordenar por Superficie"""
+
+    try:
+        paises_ordenados = paises.copy()
+
+        menu_sentido()
+        sentido = validar_sentido()
+
+        for i in range(len(paises_ordenados)):
+
+            for j in range(i + 1, len(paises_ordenados)):
+
+                if sentido == "1":
+
+                    if paises_ordenados[i]["superficie"] > paises_ordenados[j]["superficie"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+                else:
+
+                    if paises_ordenados[i]["superficie"] < paises_ordenados[j]["superficie"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+        mostrar_paises(paises_ordenados)
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
+
+#Funciones del Menú Principal
 def muestra_menu():
     """Esta Función Muestra el Menú Principal"""
     print("Menu")
@@ -548,6 +556,7 @@ def mostrar_estadisticas():
 
     for continente, cantidad in continentes.items():
         print(continente, ":", cantidad)
+
 
 #Programa Principal
 paises = cargar_datos()  #Lista con el Contenido
