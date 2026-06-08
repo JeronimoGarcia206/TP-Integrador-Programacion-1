@@ -123,6 +123,122 @@ def filtrar_superficie():
     except Exception as e:
         print(f"Error inesperado: {e}")
 
+def menu_orden():
+    """Muestra el Menú de Orden"""
+
+    print("Ordenar por")
+    print("1. Nombre")
+    print("2. Población")
+    print("3. Superficie")
+
+def menu_sentido():
+    """Muestra el Sentido del Orden"""
+
+    print("1. Ascendente")
+    print("2. Descendente")
+
+def ordenar_nombre():
+    """Esta Función Permite Ordenar por Nombre"""
+
+    try:
+        paises_ordenados = paises.copy()
+
+        menu_sentido()
+        sentido = validar_sentido()
+
+        for i in range(len(paises_ordenados)):
+
+            for j in range(i + 1, len(paises_ordenados)):
+
+                if sentido == "1":
+
+                    if paises_ordenados[i]["nombre"] > paises_ordenados[j]["nombre"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+                else:
+
+                    if paises_ordenados[i]["nombre"] < paises_ordenados[j]["nombre"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+        mostrar_paises(paises_ordenados)
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
+def ordenar_poblacion():
+    """Esta Función Permite Ordenar por Población"""
+
+    try:
+        paises_ordenados = paises.copy()
+
+        menu_sentido()
+        sentido = validar_sentido()
+
+        for i in range(len(paises_ordenados)):
+
+            for j in range(i + 1, len(paises_ordenados)):
+
+                if sentido == "1":
+
+                    if paises_ordenados[i]["poblacion"] > paises_ordenados[j]["poblacion"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+                else:
+
+                    if paises_ordenados[i]["poblacion"] < paises_ordenados[j]["poblacion"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+        mostrar_paises(paises_ordenados)
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
+def ordenar_superficie():
+    """Esta Función Permite Ordenar por Superficie"""
+
+    try:
+        paises_ordenados = paises.copy()
+
+        menu_sentido()
+        sentido = validar_sentido()
+
+        for i in range(len(paises_ordenados)):
+
+            for j in range(i + 1, len(paises_ordenados)):
+
+                if sentido == "1":
+
+                    if paises_ordenados[i]["superficie"] > paises_ordenados[j]["superficie"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+                else:
+
+                    if paises_ordenados[i]["superficie"] < paises_ordenados[j]["superficie"]:
+
+                        aux = paises_ordenados[i]
+                        paises_ordenados[i] = paises_ordenados[j]
+                        paises_ordenados[j] = aux
+
+        mostrar_paises(paises_ordenados)
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
 #Funciones de Validación
 def validar_opcion():
     """Solicita y valida la opción del menú"""
@@ -151,6 +267,42 @@ def validar_opcion_filtros():
 
             if opcion not in ["1", "2", "3"]:
                 raise ValueError("Debe ingresar una opción entre 1 y 3")
+
+            return opcion
+
+        except ValueError as e:
+            print(f"Error de ingreso: {e}")
+
+        except Exception as e:
+            print(f"Error inesperado: {e}")
+
+def validar_opcion_orden():
+    """Esta Función Solicita y Valida la Opción del Menú de Orden"""
+
+    while True:
+        try:
+            opcion = input("Seleccione una opción: ")
+
+            if opcion not in ["1", "2", "3"]:
+                raise ValueError("Debe ingresar una opción entre 1 y 3")
+
+            return opcion
+
+        except ValueError as e:
+            print(f"Error de ingreso: {e}")
+
+        except Exception as e:
+            print(f"Error inesperado: {e}")
+
+def validar_sentido():
+    """Valida el Sentido del Orden"""
+
+    while True:
+        try:
+            opcion = input("Seleccione una opción: ")
+
+            if opcion not in ["1", "2"]:
+                raise ValueError("Debe ingresar 1 o 2")
 
             return opcion
 
@@ -339,6 +491,22 @@ def filtrar_paises():
     elif opcion == "3":
         filtrar_superficie()
 
+def ordenar_paises():
+    """Esta Función Permite Ordenar de Distintas Maneras"""
+
+    menu_orden()
+
+    opcion = validar_opcion_orden()
+
+    if opcion == "1":
+        ordenar_nombre()
+
+    elif opcion == "2":
+        ordenar_poblacion()
+
+    elif opcion == "3":
+        ordenar_superficie()
+
 #Programa Principal
 paises = cargar_datos()  #Lista con el Contenido
 
@@ -358,6 +526,9 @@ while True: #Menú Interactivo
 
     elif opcion == "4":
         filtrar_paises()
+
+    elif opcion == "5":
+        ordenar_paises()
 
     elif opcion == "7":
         print("Programa Cerrado")
