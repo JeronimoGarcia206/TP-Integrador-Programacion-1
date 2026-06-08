@@ -3,6 +3,31 @@ Trabajo Práctico Integrador
 Programación 1  
 Gestión de Datos de Países en Python: filtros, ordenamientos y estadísticas
 """
+import csv
+
+
+#Funciones
+def cargar_datos():
+    """Carga los Datos desde el Archivo CSV"""
+
+    with open('Información Geografica.csv', mode='r', newline='', encoding='utf-8') as archivo:
+        lector = csv.DictReader(archivo)
+
+        for fila in lector:
+            pais = {f"nombre": fila["nombre"],
+                    "poblacion": int(fila["poblacion"]),
+                    "superficie": int(fila["superficie"]),
+                    "continente": fila["continente"]}
+            paises.append(pais)
+
+    return paises
+
+def mostrar_paises(paises):
+    """Muestra todos los países"""
+
+    for pais in paises:
+        print(pais)
+
 
 #Funciones de Validación
 def validar_opcion(opcion):
@@ -29,13 +54,16 @@ def muestra_menu():
 
 def pedir_opcion():
     """Solicita una Opción del Menú"""
+
     opcion = input("Seleccione una opción: ")
     return opcion
 
 
 #Programa Principal
+paises = [] #Lista con el Contenido
 
-while True:
+
+while True: #Menú Interactivo
     muestra_menu()
     opcion = pedir_opcion()
     opcion = validar_opcion(opcion)
