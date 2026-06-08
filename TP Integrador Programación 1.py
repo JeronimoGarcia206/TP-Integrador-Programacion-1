@@ -100,9 +100,9 @@ def filtrar_superficie():
     """Esta Función Filtra por Superficie"""
     
     try:
-        print("Ingrese la población mínima")
+        print("Ingrese la superficie mínima")
         minimo = validar_superficie()
-        print("Ingrese la población máxima")
+        print("Ingrese la superficie máxima")
         maximo = validar_superficie()
 
         if minimo > maximo:
@@ -434,7 +434,7 @@ def agregar_pais():
             print(f"Error inesperado: {e}")
 
 def actualizar_pais():
-    """Esta Función Actuliza los Datos de Población y Superficie"""
+    """Esta Función Actualiza los Datos de Población y Superficie"""
 
     try:
         nombre = input("Ingrese el país a actualizar: ").strip().title()
@@ -477,7 +477,7 @@ def mostrar_pais():
         print(f"Error inesperado: {e}")
 
 def filtrar_paises():
-    """Esta Función Permite Aplicar Distintos Filtros de Busqueda"""
+    """Esta Función Permite Aplicar Distintos Filtros de Búsqueda"""
 
     menu_filtros()
     opcion = validar_opcion_filtros()
@@ -507,31 +507,75 @@ def ordenar_paises():
     elif opcion == "3":
         ordenar_superficie()
 
+def mostrar_estadisticas():
+    """Esta Función Muestra Estadísticas de los Países"""
+
+    mayor = paises[0]
+    menor = paises[0]
+
+    suma_poblacion = 0
+    suma_superficie = 0
+
+    continentes = {}
+
+    for pais in paises:
+
+        if pais["poblacion"] > mayor["poblacion"]:
+            mayor = pais
+
+        if pais["poblacion"] < menor["poblacion"]:
+            menor = pais
+
+        suma_poblacion += pais["poblacion"]
+        suma_superficie += pais["superficie"]
+
+        continente = pais["continente"]
+
+        if continente in continentes:
+            continentes[continente] += 1
+        else:
+            continentes[continente] = 1
+
+    promedio_poblacion = suma_poblacion / len(paises)
+    promedio_superficie = suma_superficie / len(paises)
+
+    print(f"País con mayor población: {mayor["nombre"]} - {mayor["poblacion"]}")
+    print(f"País con menor población: {menor["nombre"]} - {menor["poblacion"]}") 
+    print(f"Promedio de población: {promedio_poblacion:.0f}")
+    print(f"Promedio de superficie: {promedio_superficie:.0f}")
+
+    print("Cantidad de países por continente")
+
+    for continente, cantidad in continentes.items():
+        print(continente, ":", cantidad)
+
 #Programa Principal
 paises = cargar_datos()  #Lista con el Contenido
 
 
-while True: #Menú Interactivo
-    muestra_menu()
+#Menú Interactivo
+while True: 
+    muestra_menu() #Menú de Opciones
     opcion = validar_opcion()
 
-    if opcion == "1": #Menú de Opciones
+    if opcion == "1": #Permite Agregar País
         agregar_pais()
 
-    elif opcion == "2":
+    elif opcion == "2": #Permite Actualizar País
         actualizar_pais()
 
-    elif opcion == "3":
+    elif opcion == "3": #Muestra el País Seleccionado
         mostrar_pais()
 
-    elif opcion == "4":
+    elif opcion == "4": #Realiza Distintos Filtros
         filtrar_paises()
 
-    elif opcion == "5":
+    elif opcion == "5": #Ordena de Distintas Maneras
         ordenar_paises()
 
-    elif opcion == "7":
+    elif opcion == "6": #Muestra Estadisticas
+        mostrar_estadisticas()
+
+    elif opcion == "7": #Cierra el Programa
         print("Programa Cerrado")
         break
-
-mostrar_paises(paises)
