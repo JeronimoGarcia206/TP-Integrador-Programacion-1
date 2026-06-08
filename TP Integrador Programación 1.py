@@ -45,6 +45,84 @@ def buscar_pais(paises, nombre):
 
     return None
 
+def menu_filtros():
+    """Esta Función Muestra el Menú de Filtros"""
+
+    print("Filtros")
+    print("1. Continente")
+    print("2. Rango de Población")
+    print("3. Rango de Superficie")
+
+def filtrar_continente():
+    """Esta Función Filtra por Continente"""
+
+    continente = validar_continente()
+
+    encontrados = False
+
+    for pais in paises:
+
+        if pais["continente"] == continente:
+            print(pais)
+            encontrados = True
+
+    if not encontrados:
+        print("No se encontraron países.")
+
+def filtrar_poblacion():
+    """Esta Función Filtra por Población"""
+
+    try:
+        print("Ingrese la población mínima")
+        minimo = validar_poblacion()
+        print("Ingrese la población máxima")
+        maximo = validar_poblacion()
+
+        if minimo > maximo:
+            print("El mínimo no puede ser mayor que el máximo.")
+            return
+
+        encontrados = False
+
+        for pais in paises:
+
+            if minimo <= pais["poblacion"] <= maximo:
+                print(pais)
+                encontrados = True
+
+        if not encontrados:
+            print("No se encontraron países.")
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
+def filtrar_superficie():
+    """Esta Función Filtra por Superficie"""
+    
+    try:
+        print("Ingrese la población mínima")
+        minimo = validar_superficie()
+        print("Ingrese la población máxima")
+        maximo = validar_superficie()
+
+        if minimo > maximo:
+            print("El mínimo no puede ser mayor que el máximo.")
+            return
+
+        encontrados = False
+
+        for pais in paises:
+
+            if minimo <= pais["superficie"] <= maximo:
+                print(pais)
+                encontrados = True
+
+        if not encontrados:
+            print("No se encontraron países.")
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
 #Funciones de Validación
 def validar_opcion():
     """Solicita y valida la opción del menú"""
@@ -55,6 +133,24 @@ def validar_opcion():
 
             if opcion not in ["1", "2", "3", "4", "5", "6", "7"]:
                 raise ValueError("Debe ingresar una opción entre 1 y 7")
+
+            return opcion
+
+        except ValueError as e:
+            print(f"Error de ingreso: {e}")
+
+        except Exception as e:
+            print(f"Error inesperado: {e}")
+
+def validar_opcion_filtros():
+    """Solicita y Valida la Opción del Menú de Filtros"""
+
+    while True:
+        try:
+            opcion = input("Seleccione una opción: ")
+
+            if opcion not in ["1", "2", "3"]:
+                raise ValueError("Debe ingresar una opción entre 1 y 3")
 
             return opcion
 
@@ -165,21 +261,25 @@ def muestra_menu():
 def agregar_pais():
     """Esta Función Agrega un País"""
 
-    nombre = validar_pais()
-    poblacion = validar_poblacion()
-    superficie = validar_superficie()
-    continente = validar_continente()
+    try:
+        nombre = validar_pais()
+        poblacion = validar_poblacion()
+        superficie = validar_superficie()
+        continente = validar_continente()
 
-    pais = {
-        "nombre": nombre,
-        "poblacion": poblacion,
-        "superficie": superficie,
-        "continente": continente
-    }
+        pais = {
+            "nombre": nombre,
+            "poblacion": poblacion,
+            "superficie": superficie,
+            "continente": continente
+        }
 
-    paises.append(pais)
+        paises.append(pais)
 
-    print("País agregado correctamente.")
+        print("País agregado correctamente.")
+
+    except Exception as e:
+            print(f"Error inesperado: {e}")
 
 def actualizar_pais():
     """Esta Función Actuliza los Datos de Población y Superficie"""
@@ -224,6 +324,20 @@ def mostrar_pais():
     except Exception as e:
         print(f"Error inesperado: {e}")
 
+def filtrar_paises():
+    """Esta Función Permite Aplicar Distintos Filtros de Busqueda"""
+
+    menu_filtros()
+    opcion = validar_opcion_filtros()
+
+    if opcion == "1":
+        filtrar_continente()
+
+    elif opcion == "2":
+        filtrar_poblacion()
+
+    elif opcion == "3":
+        filtrar_superficie()
 
 #Programa Principal
 paises = cargar_datos()  #Lista con el Contenido
@@ -241,6 +355,9 @@ while True: #Menú Interactivo
 
     elif opcion == "3":
         mostrar_pais()
+
+    elif opcion == "4":
+        filtrar_paises()
 
     elif opcion == "7":
         print("Programa Cerrado")
