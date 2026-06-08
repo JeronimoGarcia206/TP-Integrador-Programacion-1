@@ -181,6 +181,28 @@ def agregar_pais():
 
     print("País agregado correctamente.")
 
+def actualizar_pais():
+    """Esta Función Actuliza los Datos de Población y Superficie"""
+
+    try:
+        nombre = input("Ingrese el país a actualizar: ").strip().title()
+        pais = buscar_pais(paises, nombre)
+
+        if pais is None:
+            print("País no encontrado.")
+            return
+
+        nueva_poblacion = validar_poblacion()
+        nueva_superficie = validar_superficie()
+
+        pais["poblacion"] = nueva_poblacion
+        pais["superficie"] = nueva_superficie
+
+        print("País actualizado correctamente.")
+
+
+    except Exception as e:
+            print(f"Error inesperado: {e}")
 
 #Programa Principal
 paises = cargar_datos()  #Lista con el Contenido
@@ -192,6 +214,9 @@ while True: #Menú Interactivo
 
     if opcion == "1":
         agregar_pais()
+
+    elif opcion == "2":
+        actualizar_pais()
 
     elif opcion == "7":
         print("Programa Cerrado")
