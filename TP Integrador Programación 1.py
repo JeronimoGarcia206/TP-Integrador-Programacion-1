@@ -204,6 +204,27 @@ def actualizar_pais():
     except Exception as e:
             print(f"Error inesperado: {e}")
 
+def mostrar_pais():
+    """Esta Función Muestra la Información del País"""
+
+    try:
+        nombre = input("Ingrese el nombre del país: ").strip().title()
+
+        pais = buscar_pais(paises, nombre)
+
+        if pais is None:
+            print("País no encontrado.")
+            return
+
+        print(f"Nombre: {pais['nombre']}")
+        print(f"Población: {pais['poblacion']}")
+        print(f"Superficie: {pais['superficie']}")
+        print(f"Continente: {pais['continente']}")
+
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
+
 #Programa Principal
 paises = cargar_datos()  #Lista con el Contenido
 
@@ -212,11 +233,14 @@ while True: #Menú Interactivo
     muestra_menu()
     opcion = validar_opcion()
 
-    if opcion == "1":
+    if opcion == "1": #Menú de Opciones
         agregar_pais()
 
     elif opcion == "2":
         actualizar_pais()
+
+    elif opcion == "3":
+        mostrar_pais()
 
     elif opcion == "7":
         print("Programa Cerrado")
