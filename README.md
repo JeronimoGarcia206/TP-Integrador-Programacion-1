@@ -79,8 +79,6 @@ Jerónimo García
 
 Enlaces
 
-Repositorio GitHub: agregar enlace.
-
 Imagenes: agregar enlace.
 
 Informe PDF: agregar enlace.
