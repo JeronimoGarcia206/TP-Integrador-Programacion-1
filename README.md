@@ -79,10 +79,10 @@ Jerónimo García
 
 Enlaces
 
-Repositorio GitHub:
+Repositorio GitHub: agregar enlace.
 
-Imagenes: 
+Imagenes: agregar enlace.
 
-Informe PDF: 
+Informe PDF: agregar enlace.
 
 Video de presentación: agregar enlace.
