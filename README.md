@@ -79,8 +79,8 @@ Jerónimo García
 
 Enlaces
 
-Imagenes: agregar enlace.
+Imagenes: https://drive.google.com/drive/folders/1OelMouEK568RcmNX5AZA9hPdvIftnlyu?usp=sharing 
 
-Informe PDF: agregar enlace.
+Informe PDF: file:///C:/Users/jecah/Downloads/TRABAJO%20INTEGRADOR%20PROGRAMACION/Trabajo%20Pr%C3%A1ctico%20Integrador%20Programaci%C3%B3n%201.pdf
 
-Video de presentación: agregar enlace.
+Video de presentación: https://youtu.be/cWTEu8JpWpE
