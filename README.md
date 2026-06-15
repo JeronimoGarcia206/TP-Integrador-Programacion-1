@@ -81,6 +81,6 @@ Enlaces
 
 Imagenes: https://drive.google.com/drive/folders/1OelMouEK568RcmNX5AZA9hPdvIftnlyu?usp=sharing 
 
-Informe PDF: file:///C:/Users/jecah/Downloads/TRABAJO%20INTEGRADOR%20PROGRAMACION/Trabajo%20Pr%C3%A1ctico%20Integrador%20Programaci%C3%B3n%201.pdf
+Informe PDF: file:///C:/Users/jecah/AppData/Local/Temp/12c03b34-528e-4b38-8f47-4845221b7103_TP%20Integrador%20Programaci%C3%B3n%201.zip.103/Trabajo%20Pr%C3%A1ctico%20Integrador%20Programaci%C3%B3n%201.pdf
 
 Video de presentación: https://youtu.be/cWTEu8JpWpE
