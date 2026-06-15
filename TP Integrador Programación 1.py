@@ -547,8 +547,8 @@ def mostrar_estadisticas():
     promedio_poblacion = suma_poblacion / len(paises)
     promedio_superficie = suma_superficie / len(paises)
 
-    print(f"País con mayor población: {mayor["nombre"]} - {mayor["poblacion"]}")
-    print(f"País con menor población: {menor["nombre"]} - {menor["poblacion"]}") 
+    print(f"País con mayor población: {mayor['nombre']} - {mayor['poblacion']}")
+    print(f"País con menor población: {menor['nombre']} - {menor['poblacion']}") 
     print(f"Promedio de población: {promedio_poblacion:.0f}")
     print(f"Promedio de superficie: {promedio_superficie:.0f}")
 
